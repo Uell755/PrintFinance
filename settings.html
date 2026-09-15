@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintFinance — Settings</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <script src="storage.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="navbar">
+  <div class="logo">PrintFinance</div>
+  <nav class="nav-links">
+    <a href="index.html">DASHBOARD</a>
+    <a href="settings.html">SETTINGS</a>
+  </nav>
+  <div class="user-block">
+    <div class="names">
+      <div><strong>John Manuel Daluson</strong></div>
+      <div>Printing Shop Admin</div>
+    </div>
+    <div class="avatar">👤</div>
+  </div>
+</header>
+
+<main class="settings-wrap">
+  <a href="index.html" class="back-link">← Back to Dashboard</a>
+
+  <!-- Target Goal Settings -->
+  <section class="settings-card">
+    <h2 class="settings-title">Daily Sales Target</h2>
+    <p class="settings-sub">Set your target revenue for each Day (e.g. ₱30,000, ₱50,000).</p>
+    <div style="display: flex; gap: 10px; align-items: center; max-width: 320px;">
+      <input type="number" id="targetInput" style="padding: 8px 12px; border-radius: 8px; border: 1px solid #ccc; font-weight: 700; flex: 1;" placeholder="₱ Target">
+      <button class="primary-btn" id="saveTargetBtn">Save Goal</button>
+    </div>
+  </section>
+
+  <!-- Appearance -->
+  <section class="settings-card">
+    <h2 class="settings-title">Appearance</h2>
+    <p class="settings-sub">Choose a theme for PrintFinance. It will be saved automatically on this device.</p>
+    <div class="theme-grid" id="themeGrid">
+      <div class="theme-option" data-theme="original">
+        <div class="theme-swatch">
+          <span style="background:#6C4FE0"></span>
+          <span style="background:#6FCF97"></span>
+          <span style="background:#F19BAB"></span>
+        </div>
+        <div class="theme-name">Original</div>
+      </div>
+      <div class="theme-option" data-theme="dark">
+        <div class="theme-swatch">
+          <span style="background:#2C2350"></span>
+          <span style="background:#3FA873"></span>
+          <span style="background:#C46E82"></span>
+        </div>
+        <div class="theme-name">Dark Mode</div>
+      </div>
+      <div class="theme-option" data-theme="sunset">
+        <div class="theme-swatch">
+          <span style="background:#FF7E5F"></span>
+          <span style="background:#8FBF6F"></span>
+          <span style="background:#F2A29A"></span>
+        </div>
+        <div class="theme-name">Sunset</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Data Management -->
+  <section class="settings-card">
+    <h2 class="settings-title">Data Management</h2>
+    <p class="settings-sub">Export your transaction log into an Excel-ready CSV sheet or clear saved records.</p>
+    <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <button class="primary-btn" id="exportDataBtn">Export to CSV (Excel) 📥</button>
+      <button class="danger-btn" id="clearDataBtn">Clear All Transactions 🗑️</button>
+    </div>
+  </section>
+</main>
+
+<script src="settings.js"></script>
+</body>
+</html>

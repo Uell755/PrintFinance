@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PrintFinance — Dashboard</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <script src="storage.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="logo">PrintFinance</div>
+    <nav class="nav-links">
+      <div class="dropdown-wrap">
+        <div id="intervalToggle" class="nav-dropdown-btn">
+          DASHBOARD<br><span id="intervalNavLabel">DAY</span> ▾
+        </div>
+        <div class="dropdown-menu" id="intervalDropdown">
+          <div data-interval="day" class="active">Day (Today)</div>
+          <div data-interval="month">Month (This Month)</div>
+          <div data-interval="year">Year (This Year)</div>
+        </div>
+      </div>
+
+      <div class="dropdown-wrap">
+        <div id="themeToggle" class="nav-dropdown-btn">THEMES ▾</div>
+        <div class="dropdown-menu" id="themeDropdown">
+          <div data-theme="original">Original</div>
+          <div data-theme="dark">Dark Mode</div>
+          <div data-theme="sunset">Sunset</div>
+        </div>
+      </div>
+
+      <a href="settings.html">SETTINGS</a>
+    </nav>
+    <div class="user-block">
+      <div class="names">
+        <div><strong>John Manuel Daluson</strong></div>
+        <div>Printing Shop Admin</div>
+      </div>
+      <div class="avatar">👤</div>
+    </div>
+  </header>
+
+  <!-- DASHBOARD -->
+  <main class="dashboard">
+
+    <!-- LEFT PANEL -->
+    <section class="panel left-panel">
+      <!-- Monthly Target Card -->
+      <div class="target-card">
+        <div class="target-header">
+          <span>🎯 DAILY GOAL</span>
+          <span id="targetPercent" class="target-badge">0%</span>
+        </div>
+        <div class="progress-bar-wrap">
+          <div class="progress-bar-fill" id="targetProgressBar"></div>
+        </div>
+        <div class="target-numbers">
+          <span id="targetCurrentVal">₱ 0.00</span> / <span id="targetGoalVal">₱ 30,000.00</span>
+        </div>
+      </div>
+
+      <h3 class="panel-title" style="margin-top: 14px;">Service Distribution</h3>
+      <div class="chart-wrap">
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="legend" id="legend"></div>
+      <div class="datetime">
+        <div class="time" id="timeNow">--:-- --</div>
+        <div class="date" id="dateNow">Loading...</div>
+      </div>
+    </section>
+
+    <!-- MIDDLE PANEL: Live Transaction Feed -->
+    <section class="panel log-panel">
+      <div class="log-header">
+        <h3 class="panel-title" id="logTitle">Today's Transactions</h3>
+      </div>
+      <div class="log-list" id="logPanel">
+        <div class="log-empty">No transactions yet — add a service or purchase to get started.</div>
+      </div>
+    </section>
+
+    <!-- RIGHT PANEL: Stats & Forms -->
+    <section class="right-panel">
+      
+      <!-- Stats Cards -->
+      <div class="stats-row">
+        <div class="stat-card revenue">
+          <div class="stat-label" id="revenueLabel">TODAY'S REVENUE</div>
+          <div class="stat-value" id="revenueVal">₱ 0.00</div>
+        </div>
+        <div class="stat-card expenses">
+          <div class="stat-label" id="expenseLabel">TODAY'S EXPENSES</div>
+          <div class="stat-value" id="expenseVal">₱ 0.00</div>
+        </div>
+      </div>
+      <div class="stat-card profit">
+        <div class="stat-label" id="profitLabel">TODAY'S NET PROFIT</div>
+        <div class="stat-value" id="profitVal">₱ 0.00</div>
+      </div>
+
+      <!-- Add Service Form -->
+      <form class="form-box services" id="serviceForm">
+        <div class="form-title">Add Service (Sales):</div>
+        <div class="form-row">
+          <label for="serviceSelect">Service:</label>
+          <select id="serviceSelect" required>
+            <option value="">-- Select Service --</option>
+            <!-- Xerox Category -->
+            <option data-cat="Xerox" data-price="2.00" value="Xerox (B&W) Short">Xerox (B&W) Short — ₱2.00</option>
+            <option data-cat="Xerox" data-price="3.00" value="Xerox (B&W) Long">Xerox (B&W) Long — ₱3.00</option>
+            <option data-cat="Xerox" data-price="5.00" value="Xerox (Partial-Colored) Short">Xerox (Partial-Colored) Short — ₱5.00</option>
+            <option data-cat="Xerox" data-price="7.00" value="Xerox (Partial-Colored) Long">Xerox (Partial-Colored) Long — ₱7.00</option>
+            <option data-cat="Xerox" data-price="7.00" value="Xerox (Full-Colored) Short">Xerox (Full-Colored) Short — ₱7.00</option>
+            <option data-cat="Xerox" data-price="10.00" value="Xerox (Full-Colored) Long">Xerox (Full-Colored) Long — ₱10.00</option>
+            
+            <!-- Print Category -->
+            <option data-cat="Print" data-price="3.00" value="Print (B&W) Short">Print (B&W) Short — ₱3.00</option>
+            <option data-cat="Print" data-price="5.00" value="Print (B&W) Long">Print (B&W) Long — ₱5.00</option>
+            <option data-cat="Print" data-price="5.00" value="Print (Partial-Colored) Short">Print (Partial-Colored) Short — ₱5.00</option>
+            <option data-cat="Print" data-price="7.00" value="Print (Partial-Colored) Long">Print (Partial-Colored) Long — ₱7.00</option>
+            <option data-cat="Print" data-price="7.00" value="Print (Full-Colored) Short">Print (Full-Colored) Short — ₱7.00</option>
+            <option data-cat="Print" data-price="10.00" value="Print (Full-Colored) Long">Print (Full-Colored) Long — ₱10.00</option>  
+            
+            <!-- Laminate & Others -->
+            <option data-cat="Laminate" data-price="20.00" value="Laminate ID Size">Laminate ID Size — ₱20.00</option>
+            <option data-cat="Laminate" data-price="35.00" value="Laminate Long">Laminate Long — ₱35.00</option>
+            <option data-cat="Others" data-price="" value="Other Service">Others (Custom)</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="serviceQty">Qty:</label>
+          <input type="number" id="serviceQty" placeholder="e.g. 1" min="1" step="1" value="1" required>
+        </div>
+        <div class="form-row">
+          <label for="servicePrice">Unit Price:</label>
+          <input type="number" id="servicePrice" placeholder="₱ / unit" min="0.01" step="0.01" required>
+        </div>
+        <div class="form-row">
+          <label for="serviceTendered">Received:</label>
+          <input type="number" id="serviceTendered" placeholder="Cash tendered (₱)" min="0" step="0.01">
+        </div>
+
+        <!-- Live Total & Change Feedback Box -->
+        <div class="live-calc-box" id="calcBox">
+          <div class="calc-line">
+            <span>Bill Total:</span>
+            <strong id="calcTotal">₱ 0.00</strong>
+          </div>
+          <div class="calc-line">
+            <span>Change:</span>
+            <strong id="calcChange">₱ 0.00</strong>
+          </div>
+        </div>
+
+        <div class="add-btn-row">
+          <button type="submit" class="add-btn">ADD SALE +</button>
+        </div>
+      </form>
+
+      <!-- Add Purchase Form -->
+      <form class="form-box purchase" id="purchaseForm">
+        <div class="form-title">Add Purchase (Expense):</div>
+        <div class="form-row">
+          <label for="purchaseSelect">Item:</label>
+          <select id="purchaseSelect" required>
+            <option value="">-- Select Expense --</option>
+            <option value="Bond aPaper (Short)">Bond Paper (Short)</option>
+            <option value="Bond Paper (Long)">Bond Paper (Long)</option>
+            <option value="Ink Bottle/Cartridge">Ink</option>
+            <option value="Laminating Film">Laminating Film</option>
+            <option value="Maintenance / Repairs">Maintenance / Repairs</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="form-row">
+          <label for="purchaseQty">Qty:</label>
+          <input type="number" id="purchaseQty" placeholder="e.g. 1" min="1" step="1" required>
+        </div>
+        <div class="form-row">
+          <label for="purchasePrice">Cost:</label>
+          <input type="number" id="purchasePrice" placeholder="₱ / unit" min="0.01" step="0.01" required>
+        </div>
+        <div class="add-btn-row">
+          <button type="submit" class="add-btn">ADD EXPENSE +</button>
+        </div>
+      </form>
+
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
